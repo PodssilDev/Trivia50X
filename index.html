@@ -1,158 +1,164 @@
 <!DOCTYPE html>
-
 <html lang="en">
-    <head>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-        <link href="styles.css" rel="stylesheet">
-        <title>Trivia!</title>
-        <script>
-            var triviaQuestions = [
-                "What is the largest planet in our solar system?",
-                "Which chemical element has the symbol 'Fe'?",
-                "Who is known as the 'Father of Geometry'?",
-                "What is the primary ingredient in guacamole?",
-                "What is the smallest bone in the human body?",
-                "In which year did the first moon landing occur?",
-                "Which mammal has no vocal cords?",
-                "What is the chemical symbol for silver?",
-                "Who painted the ceiling of the Sistine Chapel?",
-                "What is the largest desert in the world?",
-                "Which planet is known as the 'Red Planet'?",
-                "What is the main ingredient in hummus?",
-                "Who wrote 'Romeo and Juliet'?",
-                "What is the longest river in the world?",
-                "What is the tallest mammal on Earth?",
-                "Which country is known as the Land of the Rising Sun?",
-                "What is the study of fossils called?",
-                "What is the largest species of bear?",
-                "What is the chemical symbol for sodium?",
-                "Which famous scientist formulated the theory of relativity?"
-            ];
+   <head>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+      <link href="styles.css" rel="stylesheet">
+      <title>Trivia!</title>
+      <script>
+         var triviaQuestions = [
+             "What is the largest planet in our solar system?",
+             "Which chemical element has the symbol 'Fe'?",
+             "Who is known as the 'Father of Geometry'?",
+             "What is the primary ingredient in guacamole?",
+             "What is the smallest bone in the human body?",
+             "In which year did the first moon landing occur?",
+             "Which mammal has no vocal cords?",
+             "What is the chemical symbol for silver?",
+             "Who painted the ceiling of the Sistine Chapel?",
+             "What is the largest desert in the world?",
+             "Which planet is known as the 'Red Planet'?",
+             "What is the main ingredient in hummus?",
+             "Who wrote 'Romeo and Juliet'?",
+             "What is the longest river in the world?",
+             "What is the tallest mammal on Earth?",
+             "Which country is known as the Land of the Rising Sun?",
+             "What is the study of fossils called?",
+             "What is the largest species of bear?",
+             "What is the chemical symbol for sodium?",
+             "Which famous scientist formulated the theory of relativity?"
+         ];
 
-            var triviaAnswers = [
-                "Jupiter",
-                "Iron",
-                "Euclid",
-                "Avocado",
-                "Stapes",
-                "1969",
-                "Giraffe",
-                "Ag",
-                "Michelangelo",
-                "Sahara",
-                "Mars",
-                "Chickpeas",
-                "William Shakespeare",
-                "Nile",
-                "Giraffe",
-                "Japan",
-                "Paleontology",
-                "Polar bear",
-                "Na",
-                "Albert Einstein"
-            ];
+         var triviaAnswers = [
+             "Jupiter",
+             "Iron",
+             "Euclid",
+             "Avocado",
+             "Stapes",
+             "1969",
+             "Giraffe",
+             "Ag",
+             "Michelangelo",
+             "Sahara",
+             "Mars",
+             "Chickpeas",
+             "William Shakespeare",
+             "Nile",
+             "Giraffe",
+             "Japan",
+             "Paleontology",
+             "Polar bear",
+             "Na",
+             "Albert Einstein"
+         ];
 
-            function getRandomIndex(max) {
-                    return Math.floor(Math.random() * max);
-                }
+         function getRandomIndex(max) {
+                 return Math.floor(Math.random() * max);
+             }
 
-            function displayRandomQuestion() {
-                var randomIndex = getRandomIndex(triviaQuestions.length);
-                var questionElement = document.getElementById("question");
-                questionElement.textContent = triviaQuestions[randomIndex];
+         function displayRandomQuestion() {
+             var randomIndex = getRandomIndex(triviaQuestions.length);
+             var questionElement = document.getElementById("question");
+             questionElement.textContent = triviaQuestions[randomIndex];
 
-                var correctAnswer = triviaAnswers[randomIndex];
+             var correctAnswer = triviaAnswers[randomIndex];
 
-                // Create an array to hold the indices of incorrect answers
-                var incorrectIndices = [];
-                for (var i = 0; i < triviaAnswers.length; i++) {
-                    if (i !== randomIndex) {
-                        incorrectIndices.push(i);
-                    }
-                }
 
-            // Get three random incorrect answers
-            var incorrectAnswers = [];
-            for (var j = 0; j < 3; j++) {
-                var randomIncorrectIndex = incorrectIndices.splice(getRandomIndex(incorrectIndices.length), 1)[0];
-                incorrectAnswers.push(triviaAnswers[randomIncorrectIndex]);
-            }
+             var incorrectIndices = [];
+             for (var i = 0; i < triviaAnswers.length; i++) {
+                 if (i !== randomIndex) {
+                     incorrectIndices.push(i);
+                 }
+             }
 
-            // Randomly insert the correct answer among incorrect answers
-            var randomIndexForCorrectAnswer = getRandomIndex(4);
-            incorrectAnswers.splice(randomIndexForCorrectAnswer, 0, correctAnswer);
+         // Get three random incorrect answers
+         var incorrectAnswers = [];
+         for (var j = 0; j < 3; j++) {
+             var randomIncorrectIndex = incorrectIndices.splice(getRandomIndex(incorrectIndices.length), 1)[0];
+             incorrectAnswers.push(triviaAnswers[randomIncorrectIndex]);
+         }
 
-           // Display answers
-           var answerButtons = document.getElementsByClassName("answer-button");
-            for (var k = 0; k < answerButtons.length; k++) {
-                answerButtons[k].textContent = incorrectAnswers[k];
-                answerButtons[k].addEventListener('click', function() {
-                    if (this.textContent === correctAnswer) {
-                        this.style.backgroundColor = 'green';
-                        document.getElementById("feedback").textContent = "Correct!";
-                    } else {
-                        this.style.backgroundColor = 'red';
-                        document.getElementById("feedback").textContent = "Incorrect";
-                    }
-                    // Disable all answer buttons after a selection is made
-                    for (var l = 0; l < answerButtons.length; l++) {
-                        answerButtons[l].disabled = true;
-                    }
-                });
-            }
-        }
+         // Randomly insert the correct answer among incorrect answers
+         var randomIndexForCorrectAnswer = getRandomIndex(4);
+         incorrectAnswers.splice(randomIndexForCorrectAnswer, 0, correctAnswer);
 
-        window.onload = displayRandomQuestion;
+         // Display answers
+         var answerButtons = document.getElementsByClassName("answer-button");
+         for (var k = 0; k < answerButtons.length; k++) {
+             answerButtons[k].textContent = incorrectAnswers[k];
+             answerButtons[k].addEventListener('click', function() {
+                 if (this.textContent === correctAnswer) {
+                     this.style.backgroundColor = 'green';
+                     document.getElementById("feedback").textContent = "Correct!";
+                 } else {
+                     this.style.backgroundColor = 'red';
+                     document.getElementById("feedback").textContent = "Incorrect";
+                 }
+                 // Disable all answer buttons after a selection is made
+                 for (var l = 0; l < answerButtons.length; l++) {
+                     answerButtons[l].disabled = true;
+                 }
+             });
+         }
+         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-        var correctFreeResponse = "Paris";
+         window.onload = displayRandomQuestion;
 
-        var freeResponseInput = document.getElementById("free-response-input");
-        var confirmButton = document.getElementById("confirm-button");
-        var responseMessage = document.getElementById("response-message");
+         document.addEventListener("DOMContentLoaded", function() {
+         var randomIndex2 = getRandomIndex(triviaQuestions.length);
+         var freequestion = triviaQuestions[randomIndex2];
+         var correctFreeResponse = triviaAnswers[randomIndex2];
+         var freeQuestionID = document.getElementById("free-question");
+         freeQuestionID.textContent = freequestion;
 
-        confirmButton.addEventListener("click", function() {
-            var userInput = freeResponseInput.value.trim().toLowerCase();
-            if (userInput === correctFreeResponse.toLowerCase()) {
-                freeResponseInput.style.backgroundColor = "lightgreen";
-                responseMessage.textContent = "Correct!";
-                responseMessage.style.color = "green";
-            } else {
-                freeResponseInput.style.backgroundColor = "salmon";
-                responseMessage.textContent = "Incorrect";
-                responseMessage.style.color = "red";
-            }
-        });
-    });
-        </script>
-    </head>
-    <body>
-        <div class="header">
-            <h1>Trivia!</h1>
-        </div>
+         var freeResponseInput = document.getElementById("free-response-input");
+         var confirmButton = document.getElementById("confirm-button");
+         var responseMessage = document.getElementById("response-message");
 
-        <div class="container">
-            <div class="section">
-                <h2>Part 1: Multiple Choice </h2>
-                <hr>
-                <h3 id = "question"><b></b></h3>
-                <!-- TODO: Add multiple choice question here -->
-                <button class="answer-button"></button>
-                <button class="answer-button"></button>
-                <button class="answer-button"></button>
-                <button class="answer-button"></button>
-                <div id="feedback"></div>
-            </div>
-
-            <div class="section">
-                <h2>Part 2: Free Response</h2>
-                <hr>
-                <!-- TODO: Add free response question here -->
-                <h3>What is the capital of France?</h3>
-                <input type="text" id="free-response-input" class="question-input">
-                <button id="confirm-button" class="confirmation-button">Confirm</button>
-                <p id="response-message"></p>
-            </div>
-        </div>
-    </body>
+         confirmButton.addEventListener("click", function() {
+         var userInput = freeResponseInput.value.trim().toLowerCase();
+         if (userInput === correctFreeResponse.toLowerCase()) {
+             freeResponseInput.style.backgroundColor = "lightgreen";
+             responseMessage.textContent = "Correct!";
+             responseMessage.style.color = "green";
+         } else {
+             freeResponseInput.style.backgroundColor = "salmon";
+             responseMessage.textContent = "Incorrect";
+             responseMessage.style.color = "red";
+         }
+         });
+         });
+      </script>
+   </head>
+   <body>
+      <div class="header">
+         <h1>Trivia 50X!</h1>
+      </div>
+      <div class="container">
+         <div class="section">
+            <h2>Part 1: Multiple Choice </h2>
+            <h4>Select the correct answer</h4>
+            <hr>
+            <h3 id = "question"><b></b></h3>
+            <!-- TODO: Add multiple choice question here -->
+            <button class="answer-button"></button>
+            <button class="answer-button"></button>
+            <button class="answer-button"></button>
+            <button class="answer-button"></button>
+            <div id="feedback"></div>
+         </div>
+         <div class="section">
+            <h2>Part 2: Free Response</h2>
+            <h4>Write the correct answer</h4>
+            <hr>
+            <!-- TODO: Add free response question here -->
+            <h3 id = "free-question">What is the capital of France?</h3>
+            <input type="text" id="free-response-input" class="question-input">
+            <button id="confirm-button" class="confirmation-button">Confirm</button>
+            <p id="response-message"></p>
+         </div>
+      </div>
+      <footer text-align: center;>
+         Copyright &copy; PodssilDev 2024 - 2025.
+      </footer>
+   </body>
 </html>
